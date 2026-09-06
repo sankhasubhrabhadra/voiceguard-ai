@@ -1,4 +1,4 @@
-﻿import os
+import os
 import json
 import logging
 import requests
@@ -24,7 +24,7 @@ class OllamaAnalyzer:
     def get_active_model(self) -> Optional[str]:
         """Check if Ollama server is running and return the best available model name."""
         try:
-            res = requests.get(f"{self.base_url}/api/tags", timeout=self.timeout)
+            res = requests.get(f"{self.base_url}/api/tags", timeout=0.5)
             if res.status_code == 200:
                 data = res.json()
                 models = [m.get("name", "").split(":")[0] for m in data.get("models", [])]

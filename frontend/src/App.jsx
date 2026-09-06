@@ -88,6 +88,7 @@ export default function App() {
         transcriptOverride: customTranscript
       });
       setAnalysisResult(res);
+      loadReportCount();
     } catch (err) {
       setError(err.message || "An error occurred during audio forensics.");
     } finally {

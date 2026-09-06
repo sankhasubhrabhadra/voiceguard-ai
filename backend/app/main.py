@@ -252,6 +252,22 @@ def analyze_audio(
             f"level={fusion_result.risk_level}, simulation={fusion_result.is_simulation_detected}"
         )
 
+        # Step 5: Auto-Log Analysis into Audit Store
+        try:
+            auto_report_id = db.add_report(
+                caller_number="Suspect / Intercepted Call",
+                audio_filename=filename,
+                risk_level=fusion_result.risk_level,
+                overall_risk_score=fusion_result.overall_risk_score,
+                voice_risk_score=fusion_result.voice_risk_score,
+                script_risk_score=fusion_result.script_risk_score,
+                transcript_snippet=transcript_text[:220] if transcript_text else "",
+                notes=f"Auto-logged. Threat Categories: {', '.join(transcript_result.detected_categories) if transcript_result.detected_categories else 'None detected'}."
+            )
+            logger.info(f"[{analysis_id}] AUDIT: Saved incident report {auto_report_id}")
+        except Exception as audit_err:
+            logger.warning(f"Failed to auto-log incident report: {audit_err}")
+
         return AnalyzeAudioResponse(
             success=True,
             analysis_id=analysis_id,
