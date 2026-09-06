@@ -8,7 +8,7 @@ const getBaseUrl = () => {
   if (typeof window !== "undefined") {
     const host = window.location.hostname;
     if (host === "localhost" || host === "127.0.0.1") {
-      return "http://localhost:8000/api";
+      return "http://127.0.0.1:8000/api";
     }
   }
   return `${LIVE_TUNNEL_URL}/api`;
@@ -17,9 +17,14 @@ const getBaseUrl = () => {
 const API_BASE_URL = getBaseUrl();
 
 export async function fetchSamples() {
-  const res = await fetch(`${API_BASE_URL}/samples`);
-  if (!res.ok) throw new Error("Failed to fetch test samples");
-  return res.json();
+  try {
+    const res = await fetch(`${API_BASE_URL}/samples`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}: Failed to fetch test samples from ${API_BASE_URL}`);
+    return await res.json();
+  } catch (err) {
+    console.error(`API Error on ${API_BASE_URL}/samples:`, err);
+    throw new Error(`Failed to connect to backend at ${API_BASE_URL}. Ensure the backend is running.`);
+  }
 }
 
 export function getSampleAudioUrl(filename) {
