@@ -1,6 +1,20 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api`
-  : "http://localhost:8000/api";
+// Primary Cloudflare Tunnel fallback for cloud deployments (e.g. Vercel)
+const LIVE_TUNNEL_URL = "https://suited-pieces-latinas-ranger.trycloudflare.com";
+
+const getBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api`;
+  }
+  if (typeof window !== "undefined") {
+    const host = window.location.hostname;
+    if (host === "localhost" || host === "127.0.0.1") {
+      return "http://localhost:8000/api";
+    }
+  }
+  return `${LIVE_TUNNEL_URL}/api`;
+};
+
+const API_BASE_URL = getBaseUrl();
 
 export async function fetchSamples() {
   const res = await fetch(`${API_BASE_URL}/samples`);
