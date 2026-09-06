@@ -1,4 +1,4 @@
-﻿// VoiceGuard AI Multi-Target Resilient API Client
+// VoiceGuard AI Multi-Target Resilient API Client
 
 const LIVE_TUNNEL_URL = "https://suited-pieces-latinas-ranger.trycloudflare.com";
 
@@ -98,6 +98,14 @@ export const FALLBACK_SAMPLES = [
     expected_risk: "Low",
     description: "Authentic human conversation from customer support confirming order delivery with no suspicious requests.",
     filename: "sample_4_legitimate_call.wav"
+  },
+  {
+    id: "sample_5",
+    title: "Digital Arrest Extortion Call (Hindi / हिंदी)",
+    category: "Digital Arrest (Hindi)",
+    expected_risk: "High",
+    description: "Synthetic voice impersonating Delhi Police Cyber Crime Branch alleging an intercepted narcotics FedEx courier parcel, enforcing an illegal 'digital arrest' in Hindi.",
+    filename: "sample_5_hindi_digital_arrest.wav"
   }
 ];
 

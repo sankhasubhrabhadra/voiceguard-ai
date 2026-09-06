@@ -29,6 +29,11 @@ export default function TranscriptViewer({ transcriptAnalysis }) {
           <h2 className="text-sm font-semibold text-[#111111] uppercase tracking-wider">
             3. Whisper Speech-to-Text & Conversational Intent Analysis
           </h2>
+          {transcriptAnalysis.detected_language && (
+            <span className="text-[10px] font-bold bg-[#EEF2FF] text-[#4338CA] border border-[#C7D2FE] px-2 py-0.5 rounded flex items-center space-x-1">
+              <span>🌐 {transcriptAnalysis.detected_language}</span>
+            </span>
+          )}
           {detected_categories.length > 0 && (
             <span className="text-[10px] font-bold bg-[#FEF2F2] text-[#DC2626] border border-[#FEE2E2] px-2 py-0.5 rounded">
               {detected_categories.length} Fraud Patterns

@@ -30,10 +30,11 @@ class STTEngine:
                 self._model = whisper.load_model("tiny")
         return self._model
 
-    def transcribe(self, audio_path: str, y: Optional[np.ndarray] = None, sr: int = 16000) -> Dict[str, Any]:
+    def transcribe(self, audio_path: str, y: Optional[np.ndarray] = None, sr: int = 16000, language: Optional[str] = None) -> Dict[str, Any]:
         """
         Transcribes audio into full text and timestamped segments.
         Accepts either direct numpy array y or audio_path.
+        Supports Hindi ('hi'), English ('en'), code-mixed Hinglish, and auto-detection.
         """
         try:
             # 1. Ensure we have 16kHz mono float32 numpy array
@@ -46,12 +47,17 @@ class STTEngine:
 
             audio_data = y.astype(np.float32)
 
-            # 2. Transcribe directly with in-memory array
+            # 2. Transcribe directly with in-memory array (auto-detects language if None)
+            transcribe_kwargs = {
+                "fp16": False,
+                "verbose": False
+            }
+            if language:
+                transcribe_kwargs["language"] = language
+
             result = self.model.transcribe(
                 audio_data,
-                fp16=False,
-                language="en",
-                verbose=False
+                **transcribe_kwargs
             )
 
             full_text = result.get("text", "").strip()

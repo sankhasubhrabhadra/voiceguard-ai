@@ -113,6 +113,13 @@ def generate_all_samples():
             "base_f0": 150.0,
             "duration": 5.2,
             "info": "Authentic human voice + Legitimate customer inquiry"
+        },
+        {
+            "filename": "sample_5_hindi_digital_arrest.wav",
+            "is_synthetic": True,
+            "base_f0": 138.0,
+            "duration": 6.0,
+            "info": "Synthetic voice clone + Hindi Digital Arrest Police Extortion Call"
         }
     ]
 

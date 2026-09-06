@@ -102,6 +102,14 @@ SAMPLE_SCENARIOS = {
         "expected_risk": "Low",
         "description": "Authentic human conversation from customer support confirming order delivery with no suspicious requests.",
         "default_transcript": "Hello, thank you for contacting customer support. We have received your query regarding the delivery timeline and your package is scheduled to arrive tomorrow morning. Have a wonderful day."
+    },
+    "sample_5_hindi_digital_arrest.wav": {
+        "id": "sample_5",
+        "title": "Digital Arrest Extortion Call (Hindi / हिंदी)",
+        "category": "Digital Arrest (Hindi)",
+        "expected_risk": "High",
+        "description": "Synthetic voice impersonating Delhi Police Cyber Crime Branch alleging an intercepted narcotics FedEx courier parcel, enforcing an illegal 'digital arrest' in Hindi.",
+        "default_transcript": "यह दिल्ली पुलिस क्राइम ब्रांच से इंस्पेक्टर शर्मा बोल रहे हैं। आपके नाम पर मुंबई कस्टम्स में एक फेडेक्स पार्सल जब्त हुआ है जिसमें गैर-कानूनी ड्रग्स और जाली पासपोर्ट मिले हैं। आपको तुरंत डिजिटल अरेस्ट में रखा गया है। यह वीडियो कॉल बिल्कुल मत काटना नहीं तो पुलिस आपके घर पहुंच जाएगी।"
     }
 }
 
@@ -235,7 +243,8 @@ def analyze_audio(
 
         transcript_result = scam_detector.analyze_transcript(
             transcript=transcript_text,
-            segments=stt_result.get("segments", [])
+            segments=stt_result.get("segments", []),
+            stt_lang=stt_result.get("language")
         )
 
         # Step 3.5: Optional Local Ollama Cognitive Forensics

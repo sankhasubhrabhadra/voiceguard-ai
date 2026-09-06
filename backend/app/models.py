@@ -85,6 +85,7 @@ class OllamaInsight(BaseModel):
 
 class TranscriptAnalysisResult(BaseModel):
     full_transcript: str
+    detected_language: Optional[str] = "en"
     script_risk_score: float = Field(..., ge=0.0, le=100.0)
     detected_categories: List[str]
     matches: List[ScamPatternMatch]

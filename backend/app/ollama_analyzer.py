@@ -52,16 +52,16 @@ class OllamaAnalyzer:
         if not model or not transcript or len(transcript.strip()) < 10:
             return OllamaInsight(enabled=False, model_name=model)
 
-        prompt = f"""You are VoiceGuard AI, an elite cybersecurity and telecommunications fraud investigator.
-Analyze this intercepted phone call transcript for social engineering tactics, authority impersonation, and fraudulent intent.
+        prompt = f"""You are VoiceGuard AI, an elite cybersecurity and telecommunications fraud investigator specializing in multi-lingual voice scams across English, Hindi (हिंदी), and Hinglish.
+Analyze this intercepted phone call transcript for social engineering tactics, authority impersonation (e.g. Police/CBI Digital Arrest, Bank OTP theft, Customs parcel extortion), and fraudulent intent.
 
-TRANSCRIPT:
+TRANSCRIPT (May be in English, Hindi, or Hinglish):
 \"\"\"{transcript}\"\"\"
 
 Provide your analysis ONLY as a valid JSON object matching this exact schema:
 {{
-  "threat_summary": "1-2 concise sentences summarizing the scam vector and attacker strategy.",
-  "psychological_tactics": ["Tactic 1 (e.g. Artificial Urgency)", "Tactic 2 (e.g. Fear of Arrest)"],
+  "threat_summary": "1-2 concise sentences in clear English summarizing the scam vector, language context, and attacker strategy.",
+  "psychological_tactics": ["Tactic 1 (e.g. Digital Arrest / Fake Police Coercion)", "Tactic 2 (e.g. OTP Harvesting / Urgency)"],
   "recommended_defense": "1-2 actionable safety instructions for the victim."
 }}
 
