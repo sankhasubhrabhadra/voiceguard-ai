@@ -43,14 +43,24 @@ app = FastAPI(
     version="2.1.0"
 )
 
-# Enable CORS for frontend development & production
+# Robust CORS configuration for all frontend environments (Vercel, localhost, tunnels)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=86400,
 )
+
+@app.get("/")
+def root():
+    return {"status": "online", "service": "VoiceGuard AI Forensics API", "version": "2.1.0"}
+
+@app.get("/api/health")
+def health():
+    return {"status": "healthy", "service": "VoiceGuard AI Forensics API"}
 
 # Initialize singletons
 audio_processor = AudioProcessor(target_sr=16000)
