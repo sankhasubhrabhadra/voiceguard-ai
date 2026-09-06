@@ -1,4 +1,4 @@
-﻿import re
+import re
 import numpy as np
 from typing import List, Dict, Any, Tuple, Optional
 from sentence_transformers import SentenceTransformer
@@ -388,8 +388,22 @@ class ScamDetector:
         # Highlight transcript segments
         flagged_categories = list(set([m.category for m in matches]))
         
-        for seg in segments:
-            seg_lower = seg.text.lower()
+        normalized_segments: List[TranscriptSegment] = []
+        for raw_seg in segments:
+            if isinstance(raw_seg, dict):
+                seg = TranscriptSegment(
+                    start_time=float(raw_seg.get("start_time", 0.0)),
+                    end_time=float(raw_seg.get("end_time", 0.0)),
+                    text=str(raw_seg.get("text", "")),
+                    is_scam_highlighted=bool(raw_seg.get("is_scam_highlighted", False)),
+                    matched_phrases=list(raw_seg.get("matched_phrases", [])),
+                    role_tag=raw_seg.get("role_tag", "General")
+                )
+            else:
+                seg = raw_seg
+
+            seg_text = seg.text or ""
+            seg_lower = seg_text.lower()
             seg_matches = []
             
             for m in matches:
@@ -411,6 +425,8 @@ class ScamDetector:
                     seg.role_tag = "Educational Note"
                 else:
                     seg.role_tag = "Suspicious Intent"
+            
+            normalized_segments.append(seg)
 
         # Calculate final script risk score (0-100)
         if not matches and not has_social_eng:
@@ -437,6 +453,6 @@ class ScamDetector:
             script_risk_score=round(script_risk_score, 1),
             detected_categories=flagged_categories,
             matches=matches,
-            segments=segments,
+            segments=normalized_segments,
             social_engineering=social_engineering
         )
