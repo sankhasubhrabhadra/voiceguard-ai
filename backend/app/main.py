@@ -25,6 +25,7 @@ from app.audio_processor import AudioProcessor
 from app.classifier import VoiceCloneClassifier
 from app.stt_engine import STTEngine
 from app.scam_detector import ScamDetector
+from app.ollama_analyzer import OllamaAnalyzer
 from app.fusion import RiskFusionEngine
 from app.database import ReportDatabase
 
@@ -56,6 +57,7 @@ audio_processor = AudioProcessor(target_sr=16000)
 classifier = VoiceCloneClassifier()
 stt_engine = STTEngine(model_size="base")
 scam_detector = ScamDetector()
+ollama_analyzer = OllamaAnalyzer()
 db = ReportDatabase()
 
 SAMPLE_SCENARIOS = {
@@ -226,10 +228,17 @@ def analyze_audio(
             segments=stt_result.get("segments", [])
         )
 
+        # Step 3.5: Optional Local Ollama Cognitive Forensics
+        ollama_insight = ollama_analyzer.analyze_transcript(
+            transcript=transcript_text,
+            voice_risk=voice_result.risk_score
+        )
+        transcript_result.ollama_insight = ollama_insight
+
         logger.info(
             f"[{analysis_id}] SCAM DETECTOR: script_risk={transcript_result.script_risk_score:.1f}%, "
             f"categories={transcript_result.detected_categories}, matches={len(transcript_result.matches)}, "
-            f"credential_req={transcript_result.social_engineering.credential_request if transcript_result.social_engineering else False}"
+            f"ollama_active={ollama_insight.enabled if ollama_insight else False}"
         )
 
         # Step 4: Multi-Modal Risk Fusion
@@ -292,3 +301,14 @@ def report_call(req: CallReportRequest):
 def get_reports(limit: int = 50):
     """Retrieves list of reported calls."""
     return db.list_reports(limit=limit)
+
+@app.get("/api/status/ollama")
+def get_ollama_status():
+    """Checks if local Ollama LLM server is accessible."""
+    model = ollama_analyzer.get_active_model()
+    return {
+        "available": model is not None,
+        "base_url": ollama_analyzer.base_url,
+        "active_model": model,
+        "supported_models": ollama_analyzer.preferred_models
+    }

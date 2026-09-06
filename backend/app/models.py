@@ -76,6 +76,13 @@ class SocialEngineeringDetails(BaseModel):
     flagged_intents: List[str] = []
     evidence: List[str] = []
 
+class OllamaInsight(BaseModel):
+    enabled: bool = False
+    model_name: Optional[str] = None
+    threat_summary: Optional[str] = None
+    psychological_tactics: List[str] = []
+    recommended_defense: Optional[str] = None
+
 class TranscriptAnalysisResult(BaseModel):
     full_transcript: str
     script_risk_score: float = Field(..., ge=0.0, le=100.0)
@@ -83,6 +90,7 @@ class TranscriptAnalysisResult(BaseModel):
     matches: List[ScamPatternMatch]
     segments: List[TranscriptSegment]
     social_engineering: Optional[SocialEngineeringDetails] = None
+    ollama_insight: Optional[OllamaInsight] = None
 
 class FusedRiskAssessment(BaseModel):
     overall_risk_score: float = Field(..., ge=0.0, le=100.0)
