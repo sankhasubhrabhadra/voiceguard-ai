@@ -106,6 +106,22 @@ export const FALLBACK_SAMPLES = [
     expected_risk: "High",
     description: "Synthetic voice impersonating Delhi Police Cyber Crime Branch alleging an intercepted narcotics FedEx courier parcel, enforcing an illegal 'digital arrest' in Hindi.",
     filename: "sample_5_hindi_digital_arrest.wav"
+  },
+  {
+    id: "sample_6",
+    title: "SBI KYC & OTP Theft Scam (Hindi / हिंदी)",
+    category: "Banking Credential Theft (Hindi)",
+    expected_risk: "High",
+    description: "Scammer calling in Hindi claiming to be from SBI Fraud Prevention Department demanding immediate 6-digit OTP verification to prevent debit card and account blockage.",
+    filename: "sample_6_hindi_bank_otp_fraud.wav"
+  },
+  {
+    id: "sample_7",
+    title: "Clinic Appointment Confirmation (Hindi / हिंदी)",
+    category: "Safe / Bonafide (Hindi)",
+    expected_risk: "Low",
+    description: "Authentic Hindi customer conversation confirming doctor appointment with zero suspicious prompts.",
+    filename: "sample_7_hindi_legitimate_call.wav"
   }
 ];
 

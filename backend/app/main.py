@@ -109,7 +109,23 @@ SAMPLE_SCENARIOS = {
         "category": "Digital Arrest (Hindi)",
         "expected_risk": "High",
         "description": "Synthetic voice impersonating Delhi Police Cyber Crime Branch alleging an intercepted narcotics FedEx courier parcel, enforcing an illegal 'digital arrest' in Hindi.",
-        "default_transcript": "यह दिल्ली पुलिस क्राइम ब्रांच से इंस्पेक्टर शर्मा बोल रहे हैं। आपके नाम पर मुंबई कस्टम्स में एक फेडेक्स पार्सल जब्त हुआ है जिसमें गैर-कानूनी ड्रग्स और जाली पासपोर्ट मिले हैं। आपको तुरंत डिजिटल अरेस्ट में रखा गया है। यह वीडियो कॉल बिल्कुल मत काटना नहीं तो पुलिस आपके घर पहुंच जाएगी।"
+        "default_transcript": "यह दिल्ली पुलिस क्राइम ब्रांच से इंस्पेक्टर विजय शर्मा बोल रहे हैं। आपके नाम पर मुंबई कस्टम्स में एक फेडेक्स पार्सल जब्त हुआ है जिसमें गैर-कानूनी ड्रग्स और जाली पासपोर्ट मिले हैं। आपको तुरंत डिजिटल अरेस्ट में रखा गया है। यह वीडियो कॉल बिल्कुल मत काटना नहीं तो पुलिस आपके घर पहुंच जाएगी।"
+    },
+    "sample_6_hindi_bank_otp_fraud.wav": {
+        "id": "sample_6",
+        "title": "SBI KYC & OTP Theft Scam (Hindi / हिंदी)",
+        "category": "Banking Credential Theft (Hindi)",
+        "expected_risk": "High",
+        "description": "Scammer calling in Hindi claiming to be from SBI Fraud Prevention Department demanding immediate 6-digit OTP verification to prevent debit card and account blockage.",
+        "default_transcript": "नमस्ते, मैं स्टेट बैंक ऑफ इंडिया के फ्रॉड प्रिवेंशन डिपार्टमेंट से बोल रहा हूँ। आपका एटीएम कार्ड और बैंक खाता आज शाम ब्लॉक हो जाएगा क्योंकि केवाईसी एक्सपायर हो गई है। खाता चालू रखने के लिए आपके मोबाइल पर भेजा गया 6 अंकों का ओटीपी वेरिफिकेशन कोड तुरंत बताइए।"
+    },
+    "sample_7_hindi_legitimate_call.wav": {
+        "id": "sample_7",
+        "title": "Clinic Appointment Confirmation (Hindi / हिंदी)",
+        "category": "Safe / Bonafide (Hindi)",
+        "expected_risk": "Low",
+        "description": "Authentic Hindi customer conversation confirming doctor appointment with zero suspicious prompts.",
+        "default_transcript": "नमस्ते, अपोलो क्लिनिक से बात कर रहे हैं। आपका कल दोपहर 3 बजे डॉक्टर वर्मा के साथ अपॉइंटमेंट कन्फर्म हो गया है। कृपया समय पर क्लिनिक पहुंचें। धन्यवाद।"
     }
 }
 
