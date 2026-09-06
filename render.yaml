@@ -1,0 +1,11 @@
+﻿services:
+  - type: web
+    name: voiceguard-ai-backend
+    runtime: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: starter
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 8000
